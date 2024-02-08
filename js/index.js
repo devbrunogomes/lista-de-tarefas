@@ -23,15 +23,33 @@ form.addEventListener("submit", (evento) => {
   //Adicionando para o array a nova tarefa que está no taskTitle
   tasks.push(taskTitle);
 
+  /* CRIANDO NOVOS ELEMENTOS HTML */
+
   //Adicionando a nova tarefa no HTML
   const novaLi = document.createElement("li"); //Crio uma tag li
-  
-  const inputCheckBox = document.createElement('input') //Criando uma nova tag <input>
-  inputCheckBox.setAttribute('type', 'checkbox') //adciono um atributo 'type' com o valor de 'checkbox' a esse <input>
 
+  //Criando uma nova tag <input>
+  const inputCheckBox = document.createElement("input");
+  inputCheckBox.setAttribute("type", "checkbox"); //adciono um atributo 'type' com o valor de 'checkbox' a esse <input>
 
+  //Criando uma nova tag <span>
+  const spanNovaTarefa = document.createElement("span");
+  spanNovaTarefa.textContent = taskTitle; //A nova tarefa fica dentro do span
 
+  //Criando uma nova tag <button>
+  const buttonRemover = document.createElement("button");
+  buttonRemover.textContent = "Remover"; //conteudo do botao
+
+  // ---------------------------------------------------------
+
+  /*  Crios os elementos HTML -> jogo eles na nova <li> -> jogo a nova <li>
+  dentro da <ul> */
+
+  novaLi.appendChild(inputCheckBox); //checkbox pra dentro da li
+  novaLi.appendChild(spanNovaTarefa); //span pra dentro da li
+  novaLi.appendChild(buttonRemover); //button pra dentro da li
   todoListUl.appendChild(novaLi); //Adiciono ela ao final da UL
 
-  taskTitleInput.value = '' //Pra limpar o input após adicionar a tarefa
+  //Pra limpar o input após adicionar a tarefa
+  taskTitleInput.value = "";
 });
