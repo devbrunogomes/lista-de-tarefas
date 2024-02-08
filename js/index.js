@@ -25,6 +25,13 @@ form.addEventListener("submit", (evento) => {
 
   //Adicionando a nova tarefa no HTML
   const novaLi = document.createElement("li"); //Crio uma tag li
-  novaLi.textContent = taskTitle; //atribuo a tarefa à nova tag
+  
+  const inputCheckBox = document.createElement('input') //Criando uma nova tag <input>
+  inputCheckBox.setAttribute('type', 'checkbox') //adciono um atributo 'type' com o valor de 'checkbox' a esse <input>
+
+
+
   todoListUl.appendChild(novaLi); //Adiciono ela ao final da UL
+
+  taskTitleInput.value = '' //Pra limpar o input após adicionar a tarefa
 });
