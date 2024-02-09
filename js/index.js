@@ -3,8 +3,9 @@
 const form = document.querySelector("#todo-form");
 const taskTitleInput = document.querySelector("#task-title-input");
 const todoListUl = document.querySelector("#todo-list");
-
 let tasks = [];
+
+//------------------------------------------------------------------
 
 //Função que adiciona a tarefa no HTML, passando como parametro apenas o titulo da tarefa, e o status dela, que por padrão será false
 function renderTaskOnHTML(taskTitle, done = false) {
@@ -15,6 +16,7 @@ function renderTaskOnHTML(taskTitle, done = false) {
   const inputCheckBox = document.createElement("input");
   inputCheckBox.setAttribute("type", "checkbox"); //adciono um atributo 'type' com o valor de 'checkbox' a esse <input>
 
+  //------------------------------------------------------------------
   //EVENTO: Marcando uma tarefa como concluida
   inputCheckBox.addEventListener("change", (event) => {
     //Pegar o elemento pai
@@ -48,9 +50,11 @@ function renderTaskOnHTML(taskTitle, done = false) {
     //Mudar o dado no localStorage
     localStorage.setItem("tasks", JSON.stringify(tasks));
   });
+  //------------------------------------------------------------------
 
   inputCheckBox.checked = done; //o valor do atributo checked será o mesmo do parametro 'done'
 
+  //------------------------------------------------------------------
   //Criando uma nova tag <span> + possivel risco
   const spanNovaTarefa = document.createElement("span");
   spanNovaTarefa.textContent = taskTitle; //A nova tarefa fica dentro do span
@@ -61,11 +65,12 @@ function renderTaskOnHTML(taskTitle, done = false) {
   } else {
     spanNovaTarefa.style.textDecoration = "none";
   }
-
+  //------------------------------------------------------------------
   //Criando uma nova tag <button> (remove)
   const buttonRemover = document.createElement("button");
   buttonRemover.textContent = "Remover"; //conteudo do botao
 
+  //------------------------------------------------------------------
   //EVENTO: remover o <li>
   buttonRemover.addEventListener("click", (event) => {
     const liToRemove = event.target.parentElement; //pai do que disparou o evento
@@ -93,6 +98,7 @@ function renderTaskOnHTML(taskTitle, done = false) {
   todoListUl.appendChild(novaLi); //Adiciono ela ao final da UL
 }
 
+//------------------------------------------------------------------
 //Executa assim que a página é carregada
 window.onload = () => {
   //const que que pega as tarefas que estao no localStorage
@@ -109,6 +115,7 @@ window.onload = () => {
   });
 };
 
+//------------------------------------------------------------------
 //EVENTO: submit do botao do form
 form.addEventListener("submit", (evento) => {
   evento.preventDefault(); //Evita o comportamento padrão de recarregar a página ao submeter o form
@@ -131,9 +138,9 @@ form.addEventListener("submit", (evento) => {
   //Salvar a tarefa no localStorage
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  /* CRIANDO NOVOS ELEMENTOS HTML */
+  /* CRIANDO NOVOS ELEMENTOS HTML ATRAVÉS DA FUNÇÃO DE RENDERIZAÇÃO */
 
-  renderTaskOnHTML(taskTitle); //Funçao de renderizar a partir do titulo de uma tarefa
+  renderTaskOnHTML(taskTitle); //Funçao de renderizar a partir do titulo de uma tarefa (nesse caso nao passo o argumento 'done', mas um valor default foi configurado)
 
   //Pra limpar o input após adicionar a tarefa
   taskTitleInput.value = "";
