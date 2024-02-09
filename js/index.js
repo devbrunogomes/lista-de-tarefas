@@ -35,26 +35,57 @@ form.addEventListener("submit", (evento) => {
   const inputCheckBox = document.createElement("input");
   inputCheckBox.setAttribute("type", "checkbox"); //adciono um atributo 'type' com o valor de 'checkbox' a esse <input>
 
+    //EVENTO: Marcando uma tarefa como concluida
+    inputCheckBox.addEventListener('change', (event) => {
+      //Pegar o elemento pai
+      const liToToggle = event.target.parentElement
+
+      const spanToToggle = liToToggle.querySelector('span')
+
+      //True se estiver marcado, False se nao estiver
+      const done = event.target.checked
+
+      //Para riscar a tarefa se 'done' for true
+      if (done) {
+        spanToToggle.style.textDecoration = 'line-through'
+      } else {
+        spanToToggle.style.textDecoration = 'none'
+      }
+
+      //Para alterar o array das tasks, mudando o status de done
+      tasks = tasks.map(t => {
+        if (t.title === spanToToggle.textContent) {
+          //Achando o titulo da tarefa atual, return o oposto de done
+          return { 
+            title: t.title,
+            done: !t.done
+          }
+        } 
+        //Nos objetos que nao forem igual ao titulo, retorna o objeto inalterado
+        return t
+      })
+    })
+
   //Criando uma nova tag <span>
   const spanNovaTarefa = document.createElement("span");
   spanNovaTarefa.textContent = taskTitle; //A nova tarefa fica dentro do span
 
-  //Criando uma nova tag <button>
+  //Criando uma nova tag <button> (remove)
   const buttonRemover = document.createElement("button");
   buttonRemover.textContent = "Remover"; //conteudo do botao
-  //EVENTO: remover o <li>
-  buttonRemover.addEventListener("click", (event) => {
-    const liToRemove = event.target.parentElement; //pai do que disparou o evento
 
-    const titleToRemove = liToRemove.querySelector("span").textContent; //Titulo da task a ser removida (para o array de tasks)
+    //EVENTO: remover o <li>
+    buttonRemover.addEventListener("click", (event) => {
+      const liToRemove = event.target.parentElement; //pai do que disparou o evento
 
-    //Filtro pra só ficar com as tarefas com o titulo diferente do que deve ser removido
-    tasks = tasks.filter(t => t.title !== titleToRemove)
+      const titleToRemove = liToRemove.querySelector("span").textContent; //Titulo da task a ser removida (para o array de tasks)
 
-    //Dentro da lista <ul> eu removo o pai do elemento que disparou o evento
-    todoListUl.removeChild(liToRemove);
-    console.log(tasks)
-  });
+      //Filtro pra só ficar com as tarefas com o titulo diferente do que deve ser removido
+      tasks = tasks.filter((t) => t.title !== titleToRemove);
+
+      //Dentro da lista <ul> eu removo o pai do elemento que disparou o evento
+      todoListUl.removeChild(liToRemove);
+    });
 
   // ---------------------------------------------------------
 
