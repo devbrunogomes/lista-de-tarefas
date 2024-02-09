@@ -7,7 +7,7 @@ const todoListUl = document.querySelector("#todo-list");
 let tasks = [];
 //adicionando eventos
 
-//Evento submit do botao do form
+//EVENTO: submit do botao do form
 form.addEventListener("submit", (evento) => {
   evento.preventDefault(); //Evita o comportamento padrão de recarregar a página ao submeter o form
 
@@ -21,7 +21,10 @@ form.addEventListener("submit", (evento) => {
   }
 
   //Adicionando para o array a nova tarefa que está no taskTitle
-  tasks.push(taskTitle);
+  tasks.push({
+    title: taskTitle,
+    done: false,
+  });
 
   /* CRIANDO NOVOS ELEMENTOS HTML */
 
@@ -39,6 +42,19 @@ form.addEventListener("submit", (evento) => {
   //Criando uma nova tag <button>
   const buttonRemover = document.createElement("button");
   buttonRemover.textContent = "Remover"; //conteudo do botao
+  //EVENTO: remover o <li>
+  buttonRemover.addEventListener("click", (event) => {
+    const liToRemove = event.target.parentElement; //pai do que disparou o evento
+
+    const titleToRemove = liToRemove.querySelector("span").textContent; //Titulo da task a ser removida (para o array de tasks)
+
+    //Filtro pra só ficar com as tarefas com o titulo diferente do que deve ser removido
+    tasks = tasks.filter(t => t.title !== titleToRemove)
+
+    //Dentro da lista <ul> eu removo o pai do elemento que disparou o evento
+    todoListUl.removeChild(liToRemove);
+    console.log(tasks)
+  });
 
   // ---------------------------------------------------------
 
